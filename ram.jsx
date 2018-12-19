@@ -1,6 +1,6 @@
 import { css } from "uebersicht"
 
-export const command = "vm_stat | awk '/Pages free:/ || /Pages inactive:/ || /Pages speculative:/ || /Pages purgeable:/'"
+export const command = "vm_stat | awk '/Pages free:/ || /Pages wired down:/ || /Pages active:/'"
 
 export const refreshFrequency = 5000 // ms
 
@@ -10,16 +10,15 @@ export const render = ({ output }) => {
   const data = output.match(/([0-9]+.)/mg);
   const values = data.toString().split('.,');
   const free = Number(values[0]);
-  const inactive = Number(values[1]);
-  const speculative = Number(values[2]);
-  const purgeable = Number(values[3].slice(0, -1));
-  const availableRAM = (free + purgeable + inactive + purgeable) * 4096 / 1000 / 1024 / 1024;
+  const active = Number(values[1]);
+  const wired = Number(values[2].slice(0, -1));
+  const availableRAM = (active + wired) * 4096 / 1000 / 1024 / 1024;
   const roundedRAM = availableRAM.toString().slice(0, 5);
 
   return(<div className={main}>
-    <h1 className={count}>{roundedRAM} GB</h1>
+    <h1 className={count}>{YOUR_INSTALLED_RAM - roundedRAM} GB</h1>
     <div className={bar}>
-      <div className={barFill} style={{width: `${100 - (roundedRAM / YOUR_INSTALLED_RAM) * 100 }%`}}></div>
+      <div className={barFill} style={{width: `${(roundedRAM / YOUR_INSTALLED_RAM) * 100 }%`}}></div>
     </div>
     <h2 className={label}>Available RAM</h2>
   </div>)
