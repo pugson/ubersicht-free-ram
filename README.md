@@ -1,5 +1,5 @@
 # ubersicht-free-ram
-Small [Übersicht](http://tracesof.net/uebersicht/) widget that displays how much RAM you have available.
+Small and minimal [Übersicht](http://tracesof.net/uebersicht/) widget that displays how much RAM you have available. (approximately)
 
 Centered on the bottom of your screen.
 
