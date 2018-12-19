@@ -4,6 +4,8 @@ export const command = "vm_stat | awk '/Pages free:/ || /Pages inactive:/ || /Pa
 
 export const refreshFrequency = 5000 // ms
 
+const YOUR_INSTALLED_RAM = 64; // GB
+
 export const render = ({ output }) => {
   const data = output.match(/([0-9]+.)/mg);
   const values = data.toString().split('.,');
@@ -17,7 +19,7 @@ export const render = ({ output }) => {
   return(<div className={main}>
     <h1 className={count}>{roundedRAM} GB</h1>
     <div className={bar}>
-      <div className={barFill} style={{width: `${100 - (roundedRAM / 64) * 100 }%`}}></div>
+      <div className={barFill} style={{width: `${100 - (roundedRAM / YOUR_INSTALLED_RAM) * 100 }%`}}></div>
     </div>
     <h2 className={label}>Available RAM</h2>
   </div>)
