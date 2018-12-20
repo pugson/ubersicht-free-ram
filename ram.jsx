@@ -16,7 +16,7 @@ export const render = ({ output }) => {
   const roundedRAM = availableRAM.toString().slice(0, 5);
 
   return(<div className={main}>
-    <h1 className={count}>{YOUR_INSTALLED_RAM - roundedRAM} GB</h1>
+    <h1 className={count}>{(YOUR_INSTALLED_RAM - roundedRAM).toFixed(2)} GB</h1>
     <div className={bar}>
       <div className={barFill} style={{width: `${(roundedRAM / YOUR_INSTALLED_RAM) * 100 }%`}}></div>
     </div>
